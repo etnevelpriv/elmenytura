@@ -5,17 +5,17 @@ const getFetchTickets = async function () {
     try {
       const resp = await fetch("./tickets.json");
       const data = await resp.json();
-      console.log(data);
-    } catch (err:any) {
+      resolve(data);
+    } catch (err: any) {
       reject(new Error(err))
     };
   });
-  return(ticketPromise);
-
+  return (ticketPromise);
 };
 
-const init = function () {
-  getFetchTickets()
+const init = async function () {
+  const arr = await getFetchTickets()
+  console.log(arr)
 };
 
 document.addEventListener("DOMContentLoaded", init);
