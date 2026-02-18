@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Élménytúra</title>
+</head>
+
+<body>
+
+  <form class="formContainer" action=" ">
+    <div class="formCard">
+      <label for="inputName">Név:</label>
+      <input id="inputName" name="Name" type="text">
+    </div>
+    <div class="formCard">
+      <label for="inputType">Esemény típusa:</label>
+      <select name="Type" id="inputType">
+      </select>
+    </div>
+    <div class="formCard">
+      <label for="inputPiece">Jegyek darabszáma:</label>
+      <input id="inputPiece" name="Piece" type="number">
+    </div>
+    <input type="button" value="Rendelés">
+  </form>
+
+  <table id="eventTable">
+    <thead id="tableHeader">
+      <tr>
+        <th>Név</th>
+        <th>Esemény neve (jegyek száma)</th>
+        <th>Ár</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+
+    </tbody>
+    <tfoot id="tableFooter">
+      <tr>
+        <th>Végösszeg</th>
+        <th id="totalPrice"></th>
+      </tr>
+    </tfoot>
+  </table>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+
+</html>
