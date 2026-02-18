@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Concert",
+    "price": 7900,
+    "max": 2
+  },
+  {
+    "name": "Amusement park",
+    "price": 19000,
+    "max": 16
+  },
+  {
+    "name": "Fishing",
+    "price": 990,
+    "max": 4
+  },
+  {
+    "name": "Horse riding",
+    "price": 2000,
+    "max": 4
+  },
+  {
+    "name": "Pegasus riding",
+    "price": 8900,
+    "max": 4
+  }
+]
