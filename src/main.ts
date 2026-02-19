@@ -16,25 +16,25 @@ const init = async function () {
   console.log(arr);
   fillFormOptions(arr);
   const getFormValues = function (e: any, arr: Ticket[]) {
-    e.preventDefault()
+    e.preventDefault();
     const nameInput = document.getElementById(`inputName`) as HTMLFormElement;
     const tourName: string = nameInput.value;
     const typeInput = document.getElementById(`inputType`) as HTMLFormElement;
     const tourType: string = typeInput.value;
     const pieceInput = document.getElementById(`inputPiece`) as HTMLFormElement;
     const tourPiece: string = pieceInput.value;
-    console.log(arr)
+    console.log(arr);
 
     const tour: Ticket = arr[Number(tourType)];
-    if (tour.max < Number(tourPiece)  || Number(tourPiece) < 1 ) {
+    if (tour.max < Number(tourPiece) || Number(tourPiece) < 1 ) {
       throw new Error(`A jegyek szama nincs megfeleloen megadva. Te ennyit szeretnel vasarolni: ${tourPiece}. Ennyi a maximalis elerheto jegy: ${tour.max}`);
     } else if (tourName?.trim() != `` || tourName != null || tourName != undefined) {
       throw new Error(`A nev nincs megfeleloen megadva: ${tourName}.`);
     } else {
-      appendTourToTable(tourName, tour.name, Number(tourPiece), tour.price)
+      appendTourToTable(tourName, tour.name, Number(tourPiece), tour.price);
     };
   };
-  document.getElementById("tourForm")?.addEventListener(`submit`, (e) => getFormValues(e, arr)) // Ezt AI-al csinaltam, nem tudtam, hogy hogyan kell;
+  document.getElementById("tourForm")?.addEventListener(`submit`, (e) => getFormValues(e, arr)); // Ezt AI-al csinaltam, nem tudtam, hogy hogyan kell;
 };
 
 const fillFormOptions = function (arr: Ticket[]) {
@@ -50,13 +50,11 @@ const fillFormOptions = function (arr: Ticket[]) {
     optionElement.textContent = option;
     optionElement.value = `${i}`;
     console.log(optionElement);
-    const select = document.getElementById("inputType")
+    const select = document.getElementById("inputType");
     select?.appendChild(optionElement);
   }
 
 };
-
-
 
 const appendTourToTable = function (name: string, type: string, piece: number, price: number) {
   const tableBody = document.getElementById(`tableBody`);
