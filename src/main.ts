@@ -25,7 +25,7 @@ const init = async function () {
     const tourPiece: string = pieceInput.value;
     console.log(arr)
 
-    const tour:Ticket = arr[Number(tourType)];
+    const tour: Ticket = arr[Number(tourType)];
     if (tour.max < Number(tourPiece)) {
       throw new Error(`Nincs eleg jegy. Te ennyit szeretnel vasarolni: ${tourPiece}. Ennyi a maximalis elerheto jegy: ${tour.max}`);
     } else {
@@ -69,6 +69,15 @@ const appendTourToTable = function (name: string, type: string, piece: number, p
   tr.appendChild(tdName);
   tr.appendChild(tdType);
   tr.appendChild(tdPrice);
+
+  const totalPriceElement = document.getElementById(`totalPrice`) as HTMLElement;
+  const totalPrice: string | undefined = totalPriceElement?.textContent;
+  let tprice: number = 0;
+  if (totalPrice?.trim() != `` || totalPrice != null || totalPrice != undefined) {
+    tprice == Number(totalPrice);
+  };
+  tprice += (piece * price) + Number(totalPrice);
+  totalPriceElement.textContent = `${tprice}`;
 };
 
 document.addEventListener("DOMContentLoaded", init);
