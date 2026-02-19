@@ -15,6 +15,24 @@ const init = async function () {
   const arr: Ticket[] = await getFetchTickets();
   console.log(arr);
   fillFormOptions(arr);
+  const getFormValues = function (e: any, arr: Ticket[]) {
+    e.preventDefault()
+    const nameInput = document.getElementById(`inputName`) as HTMLFormElement;
+    const tourName: string = nameInput.value;
+    const typeInput = document.getElementById(`inputType`) as HTMLFormElement;
+    const tourType: string = typeInput.value;
+    const pieceInput = document.getElementById(`inputPiece`) as HTMLFormElement;
+    const tourPiece: string = pieceInput.value;
+    console.log(arr)
+
+    const tour:Ticket = arr[Number(tourType)];
+    if (tour.max < Number(tourPiece)) {
+      throw new Error(`Nincs eleg jegy. Te ennyit szeretnel vasarolni: ${tourPiece}. Ennyi a maximalis elerheto jegy: ${tour.max}`);
+    } else {
+      appendTourToTable(tourName, tour.name, Number(tourPiece), tour.price)
+    };
+  };
+  document.getElementById("tourForm")?.addEventListener(`submit`, (e) => getFormValues(e, arr)) // Ezt AI-al csinaltam, nem tudtam, hogy hogyan kell;
 };
 
 const fillFormOptions = function (arr: Ticket[]) {
@@ -36,32 +54,21 @@ const fillFormOptions = function (arr: Ticket[]) {
 
 };
 
-const getFormValues = function (e: any) {
-  e.preventDefault()
-  const nameInput = document.getElementById(`inputName`) as HTMLFormElement;
-  const tourName: string = nameInput.value;
-  const typeInput = document.getElementById(`inputType`) as HTMLFormElement;
-  const tourType: string = typeInput.value;
-  const pieceInput = document.getElementById(`inputPiece`) as HTMLFormElement;
-  const tourPiece: string = pieceInput.value;
-  appendTourToTable(tourName, tourType, tourPiece)
-  // console.log(tourName);
-};
 
-const appendTourToTable = function (name: string, type: string, piece: string) {
+
+const appendTourToTable = function (name: string, type: string, piece: number, price: number) {
   const tableBody = document.getElementById(`tableBody`);
   const tr = document.createElement(`tr`);
   tableBody?.appendChild(tr);
   const tdName = document.createElement(`td`);
   const tdType = document.createElement(`td`);
-  const tdPiece = document.createElement(`td`);
+  const tdPrice = document.createElement(`td`);
   tdName.textContent = name;
-  tdType.textContent = type;
-  tdPiece.textContent = piece;
+  tdType.textContent = `${type} (${piece})`;
+  tdPrice.textContent = `${price * piece}`;
   tr.appendChild(tdName);
   tr.appendChild(tdType);
-  tr.appendChild(tdPiece);
+  tr.appendChild(tdPrice);
 };
 
 document.addEventListener("DOMContentLoaded", init);
-document.getElementById("tourForm")?.addEventListener(`submit`, getFormValues)
