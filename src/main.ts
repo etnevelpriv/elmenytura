@@ -1,21 +1,51 @@
 import "./style.css";
+import type { Ticket } from "./Ticket";
 
-const getFetchTickets = async function () {
-  const ticketPromise = new Promise(async (resolve, reject) => {
-    try {
-      const resp = await fetch("./tickets.json");
-      const data = await resp.json();
-      resolve(data);
-    } catch (err: any) {
-      reject(new Error(err))
-    };
-  });
-  return (ticketPromise);
+const getFetchTickets = async function (): Promise<Ticket[]> {
+  try {
+    const resp = await fetch("./tickets.json");
+    const data = await resp.json() as Ticket[];
+    return data;
+  } catch (err: any) {
+    throw new Error(err);
+  };
 };
 
 const init = async function () {
-  const arr = await getFetchTickets()
-  console.log(arr)
+  const arr: Ticket[] = await getFetchTickets();
+  console.log(arr);
+  fillFormOptions(arr);
+};
+
+const fillFormOptions = function (arr: Ticket[]) {
+  const options: string[] = [];
+  arr.forEach((element: Ticket) => {
+    options.push(element.name);
+  });
+  console.log(options);
+
+  for (let i = 0; i < options.length; i++) {
+    const option = options[i];
+    const optionElement = document.createElement("option");
+    optionElement.textContent = option;
+    optionElement.value = `${i}`;
+    console.log(optionElement);
+    const select = document.getElementById("inputType")
+    select?.appendChild(optionElement);
+  }
+
+};
+
+const getFormValues = function (e: any) {
+  e.preventDefault()
+  const nameInput = document.getElementById(`inputName`) as HTMLFormElement;
+  const tourName = nameInput.value;
+  const typeInput = document.getElementById(`inputType`) as HTMLFormElement;
+  const tourType = nameInput.value;
+  const pieceInput = document.getElementById(`inputPiece`) as HTMLFormElement;
+  const tourPiece= nameInput.value;
+  // console.log(tourName);
 };
 
 document.addEventListener("DOMContentLoaded", init);
+document.getElementById("tourForm")?.addEventListener(`submit`, getFormValues)
