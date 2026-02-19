@@ -26,8 +26,10 @@ const init = async function () {
     console.log(arr)
 
     const tour: Ticket = arr[Number(tourType)];
-    if (tour.max < Number(tourPiece)) {
-      throw new Error(`Nincs eleg jegy. Te ennyit szeretnel vasarolni: ${tourPiece}. Ennyi a maximalis elerheto jegy: ${tour.max}`);
+    if (tour.max < Number(tourPiece)  || Number(tourPiece) < 1 ) {
+      throw new Error(`A jegyek szama nincs megfeleloen megadva. Te ennyit szeretnel vasarolni: ${tourPiece}. Ennyi a maximalis elerheto jegy: ${tour.max}`);
+    } else if (tourName?.trim() != `` || tourName != null || tourName != undefined) {
+      throw new Error(`A nev nincs megfeleloen megadva: ${tourName}.`);
     } else {
       appendTourToTable(tourName, tour.name, Number(tourPiece), tour.price)
     };
