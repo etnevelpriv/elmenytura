@@ -39,12 +39,28 @@ const fillFormOptions = function (arr: Ticket[]) {
 const getFormValues = function (e: any) {
   e.preventDefault()
   const nameInput = document.getElementById(`inputName`) as HTMLFormElement;
-  const tourName = nameInput.value;
+  const tourName: string = nameInput.value;
   const typeInput = document.getElementById(`inputType`) as HTMLFormElement;
-  const tourType = nameInput.value;
+  const tourType: string = typeInput.value;
   const pieceInput = document.getElementById(`inputPiece`) as HTMLFormElement;
-  const tourPiece= nameInput.value;
+  const tourPiece: string = pieceInput.value;
+  appendTourToTable(tourName, tourType, tourPiece)
   // console.log(tourName);
+};
+
+const appendTourToTable = function (name: string, type: string, piece: string) {
+  const tableBody = document.getElementById(`tableBody`);
+  const tr = document.createElement(`tr`);
+  tableBody?.appendChild(tr);
+  const tdName = document.createElement(`td`);
+  const tdType = document.createElement(`td`);
+  const tdPiece = document.createElement(`td`);
+  tdName.textContent = name;
+  tdType.textContent = type;
+  tdPiece.textContent = piece;
+  tr.appendChild(tdName);
+  tr.appendChild(tdType);
+  tr.appendChild(tdPiece);
 };
 
 document.addEventListener("DOMContentLoaded", init);
